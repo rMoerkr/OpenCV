@@ -14,4 +14,41 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GaussianBlur.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HW1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SwitchBar.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="waitkeytest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Video.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SwitchBar.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GaussianBlur.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HW1.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="waitKeyTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Video.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
