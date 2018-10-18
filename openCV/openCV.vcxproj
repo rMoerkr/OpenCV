@@ -120,6 +120,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HW2.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SwitchBar.cpp" />
     <ClCompile Include="GaussianBlur.cpp" />
@@ -130,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="GaussianBlur.h" />
     <ClInclude Include="HW1.h" />
+    <ClInclude Include="HW2.h" />
     <ClInclude Include="SwitchBar.h" />
     <ClInclude Include="Video.h" />
     <ClInclude Include="waitKeyTest.h" />

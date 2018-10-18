@@ -1,4 +1,4 @@
-#include "Video.h"
+#include "HW2.h"
 int main() {
-	video();
+	HW2();
 }
