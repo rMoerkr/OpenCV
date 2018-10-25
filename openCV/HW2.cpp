@@ -1,20 +1,17 @@
 #include "HW2.h"
 void OnMouseAction(int event, int x, int y, int flags, void *ustc);
-VideoCapture cap;
 Mat videoFrame;
 int xprev, yprev, xnow, ynow;
 uint8_t downFlag;
-
-
 int HW2() {
 	clock_t cprev, cnow;
+	VideoCapture cap;
 
 	cap.open("SkyFire.avi");
 	char input = 0;
 	int i = 0;
 	int totalFrames = cap.get(CV_CAP_PROP_FRAME_COUNT);
 	int fps = cap.get(cv::CAP_PROP_FPS);
-	int num[3];
 
 	cvNamedWindow("frame");
 	setMouseCallback("frame", OnMouseAction);
@@ -39,37 +36,27 @@ int HW2() {
 
 void OnMouseAction(int event, int x, int y, int flags, void *ustc)
 {
-	switch (event)
+	if (event == CV_EVENT_MOUSEMOVE)
 	{
-	case(CV_EVENT_MOUSEMOVE):
 		xnow = x;
 		ynow = y;
-		break;
-	case(CV_EVENT_LBUTTONDOWN):
+	}
+	if (event == CV_EVENT_LBUTTONDOWN)
+	{
 		xprev = x;
 		yprev = y;
 		downFlag = 1;
-		break;
-	case(CV_EVENT_LBUTTONUP): {
+	}
+	if (event == CV_EVENT_LBUTTONUP) {
 		vector<Mat> channels;
-		Mat ROI = (videoFrame(Rect(min(xprev, x), min(yprev, y), abs(x - xprev), abs(y - yprev))));
+		Mat ROI = (videoFrame(Rect(min(xprev,xnow),	min(yprev,ynow), abs(xnow-xprev), abs(ynow-xprev))));
 		split(ROI, channels);
-		for (int i = 0; i < 3; i++) {
-			Scalar sca = { 0, 0, 0, 0 };
-			sca[i] = 255;
-			Mat MaskImage(ROI.rows, ROI.cols, CV_8UC3, sca);
-			Mat cROI(ROI.rows, ROI.cols, CV_8UC3, Scalar(0, 0, 0));
-			ROI.copyTo(cROI, MaskImage);
-			imshow("color" + i, cROI);
-			Mat textFrame = videoFrame;
-			putText(textFrame, to_string(countNonZero(channels[i])), Point(100, 50+50*i), 0, 1, sca);
-			imshow("Numbers", textFrame);
-		}
 		downFlag = 0;
 		imshow("ROI", ROI);
-		break;
-	}
-	default:
-		break;
+		for (int i = 0; i < channels.size(); ++i) {
+			Mat singleChannelImage = channels.at(i);
+			namedWindow("color"+i);
+			imshow("color"+i, singleChannelImage);
+		}
 	}
 }
