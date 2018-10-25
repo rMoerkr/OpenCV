@@ -3,15 +3,25 @@ void OnMouseAction(int event, int x, int y, int flags, void *ustc);
 Mat videoFrame;
 int xprev, yprev, xnow, ynow;
 uint8_t downFlag;
+void Bswitch(int state) {
+
+}
+void Gswitch(int state) {
+
+}
+void Rswitch(int state) {
+
+}
 int HW2() {
 	clock_t cprev, cnow;
 	VideoCapture cap;
-
 	cap.open("SkyFire.avi");
+
 	char input = 0;
 	int i = 0;
 	int totalFrames = cap.get(CV_CAP_PROP_FRAME_COUNT);
 	int fps = cap.get(cv::CAP_PROP_FPS);
+	int valueB = 255; int valueG = 255; int valueR = 255;
 
 	cvNamedWindow("frame");
 	setMouseCallback("frame", OnMouseAction);
@@ -28,6 +38,9 @@ int HW2() {
 			if (++i % totalFrames == 0) cap.set(CV_CAP_PROP_POS_FRAMES, 0);
 			input = cv::waitKey(1);
 			cprev = cnow;
+			cvCreateTrackbar("B", "ROI", &valueB, 255, Bswitch);
+			cvCreateTrackbar("G", "ROI", &valueG, 255, Gswitch);
+			cvCreateTrackbar("R", "ROI", &valueR, 255, Rswitch);
 			imshow("frame", videoFrame);
 		}
 	}
@@ -50,6 +63,7 @@ void OnMouseAction(int event, int x, int y, int flags, void *ustc)
 	case(CV_EVENT_LBUTTONUP): {
 		vector<Mat> channels;
 		Mat ROI = (videoFrame(Rect(min(xprev, x), min(yprev, y), abs(x - xprev), abs(y - yprev))));
+		imshow("ROI", ROI);
 		split(ROI, channels);
 		for (int i = 0; i < 3; i++) {
 			Scalar sca = { 0, 0, 0, 0 };
@@ -63,7 +77,6 @@ void OnMouseAction(int event, int x, int y, int flags, void *ustc)
 			imshow("Numbers", textFrame);
 		}
 		downFlag = 0;
-		imshow("ROI", ROI);
 		for (int i = 0; i < channels.size(); ++i) {
 			Mat singleChannelImage = channels.at(i);
 			namedWindow("color" + i);
