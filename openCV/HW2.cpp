@@ -36,27 +36,42 @@ int HW2() {
 
 void OnMouseAction(int event, int x, int y, int flags, void *ustc)
 {
-	if (event == CV_EVENT_MOUSEMOVE)
-	{
+	switch (event) {
+	case(CV_EVENT_MOUSEMOVE): {
 		xnow = x;
 		ynow = y;
+		break;
 	}
-	if (event == CV_EVENT_LBUTTONDOWN)
-	{
+	case(CV_EVENT_LBUTTONDOWN):
 		xprev = x;
 		yprev = y;
 		downFlag = 1;
-	}
-	if (event == CV_EVENT_LBUTTONUP) {
+		break;
+	case(CV_EVENT_LBUTTONUP): {
 		vector<Mat> channels;
-		Mat ROI = (videoFrame(Rect(min(xprev,xnow),	min(yprev,ynow), abs(xnow-xprev), abs(ynow-xprev))));
+		Mat ROI = (videoFrame(Rect(min(xprev, x), min(yprev, y), abs(x - xprev), abs(y - yprev))));
 		split(ROI, channels);
+		for (int i = 0; i < 3; i++) {
+			Scalar sca = { 0, 0, 0, 0 };
+			sca[i] = 255;
+			Mat MaskImage(ROI.rows, ROI.cols, CV_8UC3, sca);
+			Mat cROI(ROI.rows, ROI.cols, CV_8UC3, Scalar(0, 0, 0));
+			ROI.copyTo(cROI, MaskImage);
+			imshow("color" + i, cROI);
+			Mat textFrame = videoFrame;
+			putText(textFrame, to_string(countNonZero(channels[i])), Point(100, 50 + 50 * i), 0, 1, sca);
+			imshow("Numbers", textFrame);
+		}
 		downFlag = 0;
 		imshow("ROI", ROI);
 		for (int i = 0; i < channels.size(); ++i) {
 			Mat singleChannelImage = channels.at(i);
-			namedWindow("color"+i);
-			imshow("color"+i, singleChannelImage);
+			namedWindow("color" + i);
+			imshow("color" + i, singleChannelImage);
 		}
+		break;
+	}
+	default:
+		break;
 	}
 }
