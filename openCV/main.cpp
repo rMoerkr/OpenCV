@@ -1,4 +1,4 @@
-#include "HW2.h"
+#include "GaussianBlur.h"
 int main() {
-	HW2();
+	GaussianBlur();
 }

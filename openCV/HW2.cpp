@@ -1,16 +1,34 @@
 #include "HW2.h"
 void OnMouseAction(int event, int x, int y, int flags, void *ustc);
-Mat videoFrame;
+Mat videoFrame,ROI;
 int xprev, yprev, xnow, ynow;
 uint8_t downFlag;
 void Bswitch(int state) {
-
+	for (int i = 0; i < ROI.rows; i++) {
+		uchar* data = ROI.ptr<uchar>(i);
+		for (int j = 0; j < ROI.cols; j++) {
+			data[j * 3 + 0] = data[j * 3 + 0] * (state / 255);
+		}
+	}
+	imshow("ROI", ROI);
 }
 void Gswitch(int state) {
-
+	for (int i = 0; i < ROI.rows; i++) {
+		uchar* data = ROI.ptr<uchar>(i);
+		for (int j = 0; j < ROI.cols; j++) {
+			data[j * 3 + 1] = data[j * 3 + 0] * (state / 255);
+		}
+	}
+	imshow("ROI", ROI);
 }
 void Rswitch(int state) {
-
+	for (int i = 0; i < ROI.rows; i++) {
+		uchar* data = ROI.ptr<uchar>(i);
+		for (int j = 0; j < ROI.cols; j++) {
+			data[j * 3 + 2] = data[j * 3 + 0] * (state / 255);
+		}
+	}
+	imshow("ROI", ROI);
 }
 int HW2() {
 	clock_t cprev, cnow;
@@ -62,7 +80,7 @@ void OnMouseAction(int event, int x, int y, int flags, void *ustc)
 		break;
 	case(CV_EVENT_LBUTTONUP): {
 		vector<Mat> channels;
-		Mat ROI = (videoFrame(Rect(min(xprev, x), min(yprev, y), abs(x - xprev), abs(y - yprev))));
+		ROI = (videoFrame(Rect(min(xprev, x), min(yprev, y), abs(x - xprev), abs(y - yprev))));
 		imshow("ROI", ROI);
 		split(ROI, channels);
 		for (int i = 0; i < 3; i++) {
@@ -77,11 +95,6 @@ void OnMouseAction(int event, int x, int y, int flags, void *ustc)
 			imshow("Numbers", textFrame);
 		}
 		downFlag = 0;
-		for (int i = 0; i < channels.size(); ++i) {
-			Mat singleChannelImage = channels.at(i);
-			namedWindow("color" + i);
-			imshow("color" + i, singleChannelImage);
-		}
 		break;
 	}
 	default:
