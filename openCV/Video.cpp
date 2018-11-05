@@ -1,6 +1,6 @@
 #include "Video.h"
 
-int Video() {
+int video() {
 	VideoCapture cap;
 	Mat videoFrame;
 	char input=0;
