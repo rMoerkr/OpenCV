@@ -36,6 +36,9 @@
     <ClCompile Include="HW2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SharpnessScore.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SwitchBar.h">
@@ -54,6 +57,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="HW2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SharpnessScore.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
