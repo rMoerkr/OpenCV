@@ -71,7 +71,7 @@ int HW2() {
 	clock_t cprev, cnow;
 	VideoCapture cap;
 	VideoWriter w_cap;
-	cap.open("SkyFire.avi");
+	int rec = cap.open("SkyFire.avi");
 
 	char input = 0;
 	int fra = 0;

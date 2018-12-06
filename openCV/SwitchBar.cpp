@@ -16,6 +16,6 @@ int SwitchBar() {
 	imshow("pic", img);
 	cvCreateTrackbar("Times", "SwitchBar", &switch_value, 200, switch_trigger);
 	cv::waitKey(0);
-	destroyAllWindows;
+	destroyAllWindows();
 	return 0;
 }

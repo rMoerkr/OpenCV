@@ -1,4 +1,4 @@
-#include "HW2.h"
+#include "histogram.h"
 int main() {
-	HW2();
+	histogram();
 }
