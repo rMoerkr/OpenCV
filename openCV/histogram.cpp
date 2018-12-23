@@ -1,6 +1,6 @@
 #include "histogram.h"
 
-Mat  imgSrc, imgDst;
+Mat imgSrc, imgDst;
 Mat hist[3];
 vector <cv::Mat> channels;
 Mat histImage, showhistImage;

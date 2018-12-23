@@ -1,4 +1,4 @@
-#include "histogram.h"
+#include "Video.h"
 int main() {
-	histogram();
+	Video();
 }
